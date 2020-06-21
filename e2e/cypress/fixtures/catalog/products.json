@@ -1,0 +1,8 @@
+{
+  "products": [
+    { "title": "Clean Code", "price": 20 },
+    { "title": "Clean Architecture", "price": 20 },
+    { "title": "Spider-man: Life Story", "price": 20 },
+    { "title": "Mastering React", "price": 20 }
+  ]
+}

@@ -1,9 +1,17 @@
-describe('Product Catalog', () => {
+import { products } from '../fixtures/catalog/products.json'
+
+describe('Product Catalogue', () => {
+
+  const productsEndpoint = {
+    method: 'GET',
+    url: 'http://localhost:4000/products',
+  };
 
   it('shows the catalog', () => {
-    const productTitles = ['Clean Code', 'Clean Architecture', 'Spider-man: Life Story', 'Mastering React']
+    cy.route({...productsEndpoint, response: 'fixture:catalog/products', status: 200 });
+
     cy.visit('/');
-    productTitles.map( title => {
+    products.map( ({title}) => {
       cy.contains(title);
     })
   });

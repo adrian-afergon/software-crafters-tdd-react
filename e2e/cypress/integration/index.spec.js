@@ -1,5 +1,7 @@
-describe('', () => {
-  it('should open the web', () => {
-    expect(true).to.equal(true);
+describe('Product Catalog', () => {
+
+  it('shows the catalog', () => {
+    cy.visit('/');
+    cy.contains('.products > li');
   });
-});
+})

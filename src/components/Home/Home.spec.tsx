@@ -8,8 +8,6 @@ import { HomeText } from './Home';
 
 describe('Home', () => {
 
-  // what happen when request fails?
-
   const buildProductRepository = (promise: Promise<Product[]>) => ({
     getProducts: jest.fn(() => promise)
   });

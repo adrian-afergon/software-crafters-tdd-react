@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "test:e2e": "npm run cy:open --prefix ./e2e",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook",
@@ -48,6 +48,7 @@
     "@testing-library/react-hooks": "^3.3.0",
     "awesome-typescript-loader": "^5.2.1",
     "hygen": "^5.0.3",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
     "prettier": "^2.0.5",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",

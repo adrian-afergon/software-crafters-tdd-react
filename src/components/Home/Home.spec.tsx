@@ -27,13 +27,13 @@ describe('Home', () => {
     expect(foundProducts.length).toBe(products.length);
   });
 
-  it('shows a message when list is empty', () => {
+  it('shows a message when list is empty', async () => {
     // Define a data source
     const products: Product[] = [];
     const productsRepository: ProductsRepository = buildProductRepository(products);
     const view = render(<Home productsRepository={productsRepository}/>);
 
-    expect(view.queryByText(HomeText.emptyMessage)).toBeInTheDocument();
+    expect(await view.findByText(HomeText.emptyMessage)).toBeInTheDocument();
   });
 
 });

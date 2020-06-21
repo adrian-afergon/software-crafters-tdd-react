@@ -15,9 +15,12 @@ export const Home: React.FC<HomeProps> = ({ productsRepository }) => {
   React.useEffect(() => {
     productsRepository.getProducts().then(setProducts);
   }, []);
+
+  const hasProducts = () => products && products.length > 0;
+
   return (
     <section>
-      { products
+      { hasProducts()
         ? products.map(product => <article key={product.handle}>{product.title}</article>)
         : <p>{HomeText.emptyMessage}</p>
       }

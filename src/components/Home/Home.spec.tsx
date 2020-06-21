@@ -36,4 +36,15 @@ describe('Home', () => {
     expect(await view.findByText(HomeText.emptyMessage)).toBeInTheDocument();
   });
 
+  it('shows a error when products can not be retrieved', async () => {
+    // Define a data source
+    const error = new Error('irrelevant error');
+    const productsRepository: ProductsRepository = {
+      getProducts: jest.fn(() => Promise.reject(error))
+    };
+    const view = render(<Home productsRepository={productsRepository}/>);
+
+    expect(await view.findByText(error.message)).toBeInTheDocument();
+  });
+
 });

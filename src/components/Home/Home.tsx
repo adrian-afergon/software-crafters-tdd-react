@@ -1,19 +1,22 @@
 import * as React from 'react';
-import { ProductsRepository } from '../../repositories/ProductsRepository';
 import { Product } from '../../models/product';
 import { ProductCard } from '../ProductCard';
-import { CartRepository } from '../../repositories/CartRepository';
+import { productsRepository as productsRepositoryInstance, ProductsRepository } from '../../repositories/ProductsRepository';
+import { cartRepository as cartRepositoryInstance, CartRepository } from '../../repositories/CartRepository';
 
 export enum HomeText {
   emptyMessage = 'No products were found'
 }
 
 interface HomeProps {
-  productsRepository: ProductsRepository;
-  cartRepository: CartRepository;
+  productsRepository?: ProductsRepository;
+  cartRepository?: CartRepository;
 }
 
-export const Home: React.FC<HomeProps> = ({ productsRepository, cartRepository }) => {
+export const Home: React.FC<HomeProps> = ({
+  productsRepository = productsRepositoryInstance,
+  cartRepository = cartRepositoryInstance,
+}) => {
   const [products, setProducts] = React.useState<Product[]>([]);
   const [error, setError] = React.useState<Error|null>(null);
   React.useEffect(() => {

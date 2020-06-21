@@ -12,14 +12,18 @@ interface HomeProps {
 
 export const Home: React.FC<HomeProps> = ({ productsRepository }) => {
   const [products, setProducts] = React.useState<Product[]>([]);
+  const [error, setError] = React.useState<Error|null>(null);
   React.useEffect(() => {
-    productsRepository.getProducts().then(setProducts);
+    productsRepository.getProducts()
+      .then(setProducts)
+      .catch(setError);
   }, []);
 
   const hasProducts = () => products && products.length > 0;
 
   return (
     <section>
+      { error && <p>{error.message}</p> }
       { hasProducts()
         ? products.map(product => <article key={product.handle}>{product.title}</article>)
         : <p>{HomeText.emptyMessage}</p>

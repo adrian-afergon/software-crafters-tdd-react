@@ -19,4 +19,17 @@ describe('Home', () => {
     const foundProducts = await Promise.all(products.map((product) => view.findByText(product.title)));
     expect(foundProducts.length).toBe(products.length);
   });
+
+  it('shows a message when list is empty', () => {
+    // Define a data source
+    const products: Product[] = [];
+    const productsRepository = {
+      getProducts: jest.fn(() => Promise.resolve(products))
+    };
+    const emptyMessage = 'No products were found';
+    const view = render(<Home productsRepository={productsRepository}/>);
+
+    expect(view.queryByText(emptyMessage)).toBeInTheDocument();
+  });
+
 });

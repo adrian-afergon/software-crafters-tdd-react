@@ -13,7 +13,10 @@ export const Home: React.FC<HomeProps> = ({ productsRepository }) => {
   }, []);
   return (
     <section>
-      {products.map(product => <article key={product.handle}>{product.title}</article>)}
+      { products
+        ? products.map(product => <article key={product.handle}>{product.title}</article>)
+        : <p>No products were found</p>
+      }
     </section>
   );
 };

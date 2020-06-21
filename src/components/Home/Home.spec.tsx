@@ -10,38 +10,33 @@ describe('Home', () => {
 
   // what happen when request fails?
 
-  const buildProductRepository = (products: Product[]): ProductsRepository => ({
-    getProducts: jest.fn(() => Promise.resolve(products))
+  const buildProductRepository = (promise: Promise<Product[]>) => ({
+    getProducts: jest.fn(() => promise)
   });
 
   it('shows a list of products', async () => {
-    // Define a data source
     const products: Product[] = [
       buildProduct({handle: 'handle-1', title:'title 1'}),
       buildProduct({handle: 'handle-2', title:'title 2'})
     ];
-    const productsRepository: ProductsRepository = buildProductRepository(products);
+    const productsRepository: ProductsRepository = buildProductRepository(Promise.resolve(products));
     const view = render(<Home productsRepository={productsRepository}/>);
-    // Search in async way all the product titles at the screen
+
     const foundProducts = await Promise.all(products.map((product) => view.findByText(product.title)));
     expect(foundProducts.length).toBe(products.length);
   });
 
   it('shows a message when list is empty', async () => {
-    // Define a data source
     const products: Product[] = [];
-    const productsRepository: ProductsRepository = buildProductRepository(products);
+    const productsRepository: ProductsRepository = buildProductRepository(Promise.resolve(products));
     const view = render(<Home productsRepository={productsRepository}/>);
 
     expect(await view.findByText(HomeText.emptyMessage)).toBeInTheDocument();
   });
 
   it('shows a error when products can not be retrieved', async () => {
-    // Define a data source
     const error = new Error('irrelevant error');
-    const productsRepository: ProductsRepository = {
-      getProducts: jest.fn(() => Promise.reject(error))
-    };
+    const productsRepository: ProductsRepository = buildProductRepository(Promise.reject(error));
     const view = render(<Home productsRepository={productsRepository}/>);
 
     expect(await view.findByText(error.message)).toBeInTheDocument();

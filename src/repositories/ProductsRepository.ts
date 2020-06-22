@@ -8,4 +8,5 @@ export const productsRepository: ProductsRepository = {
   getProducts: () =>
     fetch('http://localhost:4000/products')
       .then(response => response.json())
+      .then(data => data.products)
 };

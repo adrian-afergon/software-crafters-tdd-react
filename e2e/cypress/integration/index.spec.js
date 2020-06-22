@@ -7,6 +7,10 @@ describe('Product Catalogue', () => {
     url: 'http://localhost:4000/products',
   };
 
+  beforeEach(() => {
+    cy.server();
+  });
+
   it('shows the catalog', () => {
     cy.route({...productsEndpoint, response: 'fixture:catalog/products', status: 200 });
 
